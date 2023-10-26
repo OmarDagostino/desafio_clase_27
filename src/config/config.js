@@ -1,0 +1,31 @@
+import dotenv from 'dotenv';
+import { Command, Option } from 'commander';
+
+const program = new Command();
+
+program
+  .addOption(new Option("-m, --modo <modo>", "Modo en que corre la app").choices("development", "staging", "production").default('development'))
+  .parse(process.argv);
+
+const opciones = program.opts();
+
+let pathenv = `./src/.env.${opciones.modo}`;
+
+dotenv.config({ path: pathenv, override: true });
+
+export const config = {
+
+MONGO_URL : process.env.MONGO_URL,
+CARTS_COLLECTION : process.env.CARTS_COLLECTION,
+USERS_COLLECTION : process.env.USERS_COLLECTION,
+PRODUCTS_COLLECTION : process.env.PRODUCTS_COLLECTION,
+MESSAGES_COLLECTION : process.env.MESSAGES_COLLECTION,
+EMAIL_ADMINISTRADOR : process.env.EMAIL_ADMINISTRADOR ,
+PASSWORD_ADMINISTRADOR : process.env.PASSWORD_ADMINISTRADOR, 
+CALL_BACK_GITHUB_URL : process.env.CALL_BACK_GITHUB_URL,
+CLIENT_ID_GITHUB : process.env.CLIENT_ID_GITHUB, 
+CLIENT_SECRETI_GITHUB : process.env.CLIENT_SECRETI_GITHUB,
+SECRET : process.env.SECRET,
+PORT : process.env.PORT 
+
+}
