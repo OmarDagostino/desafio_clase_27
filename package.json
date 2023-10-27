@@ -1,12 +1,12 @@
 {
   "name": "desafio_clase_27",
-  "version": "1.0.0",
+  "version": "2.0.2",
   "description": "modelo de capas",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/app.js",
-    "dev": "nodemon ./src/app.js"
+    "test": "node ./src/app.js -m staging",
+    "start": "node ./src/app.js -m production",
+    "dev": "nodemon ./src/app.js -m development"
   },
   "author": "Omar D agostino",
   "license": "ISC",
