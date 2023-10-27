@@ -1,5 +1,3 @@
-console.log('OK')
-
 const socket= io ()
 
 let email='';

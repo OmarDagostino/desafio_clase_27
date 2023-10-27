@@ -2,9 +2,9 @@ import passport from 'passport';
 import local from 'passport-local';
 import crypto from 'crypto';
 import GitHubStrategy from 'passport-github2';
-import {usersDataManager} from '../dao/usersDataManager.js'
 import {config} from '../config/config.js'
 import {isValidPassword} from '../util.js';
+import { usersServices } from '../services/usersServices.js';
 
 const inicializaPassport = () => {
 
@@ -21,33 +21,29 @@ passport.use ('registro', new local.Strategy(
       try {
         
         if (!name || !username || !password) {
-          console.log ('falta un campo')
+        
         return done (null,false)
       }
       
       if (!validarCorreoElectronico(username)) {
-        console.log ('formato correo erroneo')
-        console.log (username)
+       
           return done (null, false)
       }
       
-      const existeUsuario = await usersDataManager.obtenerUsuarioPorEmail(username)
+      const existeUsuario = await usersServices.obtenerUsuarioPorEmail(username)
       if (existeUsuario) {
-        console.log ('existe el email')
-        console.log (existeUsuario)
-        console.log (username)
+     
          return done (null, false)
       }
       
       password=crypto.createHmac('sha256','palabraSecreta').update(password).digest('base64')
       let typeofuser='user'
-      const usuario = usersDataManager.crearUsuario(name,email,password,typeofuser,last_name,age)
+      const usuario = usersServices.crearUsuario(name,email,password,typeofuser,last_name,age)
         
       return done (null,usuario)
       
       }
     catch (error){
-      console.log (`otro error : ${error}`)
       return done(error)
     }
   }
@@ -81,7 +77,7 @@ usernameField:'email', passReqToCallback : true
     }
     password=crypto.createHmac('sha256','palabraSecreta').update(password).digest('base64')
   
-    req.usuario = await usersDataManager.obtenerUsuarioPorEmail({username })
+    req.usuario = await usersServices.obtenerUsuarioPorEmail({username })
   
     if(!req.usuario) {
       return done (null,false)
@@ -108,17 +104,17 @@ passport.use('loginGitHub', new GitHubStrategy.Strategy({
   callbackURL:config.CALL_BACK_GITHUB_URL,
 
   clientID:config.CLIENT_ID_GITHUB ,
-
+  
   clientSecret:config.CLIENT_SECRETI_GITHUB
   
   }, async(token,tokenfresh, profile, done)=> {
     try {
       let username = profile._json.email
-      let usuario= await usersDataManager.obtenerUsuarioPorEmail({username})
+      let usuario= await usersServices.obtenerUsuarioPorEmail({username})
          
       if(!usuario) {
         let typeofuser='user'
-        usuario = await usersDataManager.crearUsuario (profile._json.name,profile._json.email,'github',typeofuser)
+        usuario = await usersServices.crearUsuario (profile._json.name,profile._json.email,'github',typeofuser)
         
         return done (null,usuario)
       } else {
@@ -140,7 +136,7 @@ passport.serializeUser((usuario, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-    if (id!=='1') {let usuario = await usersDataManager.obtenerUsuarioPorId (id);
+    if (id!=='1') {let usuario = await usersServices.obtenerUsuarioPorId (id);
     return done(null,usuario)
   } else {
     let usuario = {

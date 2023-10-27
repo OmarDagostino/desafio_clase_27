@@ -30,8 +30,16 @@ router.post('/login', passport.authenticate('login', { failureRedirect: '/api/se
 // Login con GitHub
 router.get('/loginGitHub', passport.authenticate('loginGitHub', {}), (req, res, next) => { });  
 
-router.get('/callbackGithub', usersController.callback);  
-
+router.get('/callbackGithub',  passport.authenticate('loginGitHub', 
+        { 
+            failureRedirect: '/api/sesions/errorLoginGitHub'
+            
+        } 
+    ),(req, res, next) => { 
+   
+    req.session.usuario = req.user;
+    return res.redirect ('/products')
+    });  
 
 // logOut
 

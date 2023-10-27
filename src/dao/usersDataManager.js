@@ -10,18 +10,15 @@ const router = Router ()
 // Conectar a la base de datos MongoDB Atlas
 mongoose.connect(config.MONGO_URL);
 
-export const usersDataManager = { 
+// Clases para el Manejo de usuarios
+export class usersDataManager { 
 
-// Funciones para Manejo de usuarios
 
-obtenerUsuarioPorEmail : async (direccionDeCorreo) =>
+
+async obtenerUsuarioPorEmail (direccionDeCorreo)
 {
   try {
-    console.log ('managerMD')
-    console.log (direccionDeCorreo)
-    console.log(direccionDeCorreo.username)
-
-   
+       
     const existingUser = await userModel.findOne({ email: direccionDeCorreo.username}).exec();
     return existingUser
    }
@@ -29,9 +26,9 @@ obtenerUsuarioPorEmail : async (direccionDeCorreo) =>
     console.error(`Error en el servidor ${error}`);
     }
 
-},
+};
 
-obtenerUsuarioPorId : async (id) =>
+async obtenerUsuarioPorId   (id)
 {
   try {
    
@@ -42,9 +39,9 @@ obtenerUsuarioPorId : async (id) =>
     console.error(`Error en el servidor ${error}`);
     }
 
-},
+};
 
-crearUsuario : async (name,email,password,typeofuser,last_name,age) =>
+async crearUsuario  (name,email,password,typeofuser,last_name,age)
 {
   let cartId
   try {
@@ -60,8 +57,7 @@ crearUsuario : async (name,email,password,typeofuser,last_name,age) =>
 
   try {
     password=createHash(password);
-    console.log ('create usuario')
-    console.log (email)
+    
     const user = new userModel({name,email,password,cartId,typeofuser,last_name, age});
     await user.save();
     return user;

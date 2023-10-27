@@ -40,14 +40,14 @@ async function Login (req, res, next) {
     } else {
       return res.redirect('/products'); // Redirige al usuario
     }
-  }
-
+  };
+/*
 async function callback (req, res, next) { 
-   
+  
     req.session.usuario = req.user;
     return res.redirect ('/products')
     };  
-
+*/
 
 // logOut
 
@@ -64,4 +64,4 @@ async function current (req,res) {
   res.redirect('./current')
 }
   
-  export default {errorLogin, errorLoginGitHub, errorRegistro, Login , callback ,logout, current}
+  export default {errorLogin, errorLoginGitHub, errorRegistro, Login ,logout, current}

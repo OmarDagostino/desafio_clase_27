@@ -3,6 +3,12 @@
 
 ## Autor : Omar D'Agostino
 
+## Funcionalidades agregadas 
+
+    * Se refactorizó el codigo para hacerlo por capas, se establecieron las capas de controller, de DAO, de Servicios , de rutas y de vistas (con handlebars) Diferenciandose los modulos de productos, carritos, usuarios y chat
+
+    * Se implementaron las variables de entorno (development, staging y production) con los datos sensibles, como asi tambien el email del administrador y su contraseña (como lo solicitadban los criterios de corrección de este desafío)
+
 ## Tecnologías utilizadas : 
 - Node JS : v18.16.1
 - Motor de plantillas : Handlebars
@@ -14,8 +20,10 @@
     -colecciones : products1 / carts1 / messages1 /sessions / users1
 - Dependencias 
     "bcrypt": "^5.1.1",
+    "commander": "^11.1.0",
     "connect-mongo": "^5.0.0",
     "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
@@ -29,12 +37,7 @@
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2"
 
-## Funcionalidades agregadas 
 
-    * ampliacion del modelo de user con el apellido y la edad
-
-    * implementación de la vista del usuario registrado con todos sus datos
-   
 
    
    
