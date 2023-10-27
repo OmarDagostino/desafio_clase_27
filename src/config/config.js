@@ -4,7 +4,7 @@ import { Command, Option } from 'commander';
 const program = new Command();
 
 program
-  .addOption(new Option("-m, --modo <modo>", "Modo en que corre la app").choices("development", "staging", "production").default('development'))
+  .addOption(new Option("-m, --modo <modo>", "Modo en que corre la app").choices(["development", "staging", "production"]).default('development'))
   .parse(process.argv);
 
 const opciones = program.opts();
