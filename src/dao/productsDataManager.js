@@ -97,7 +97,7 @@ async actualizarProducto (producto,pid)
       return;
     }
 
-    await product.save();
+    await updatedProduct.save();
     
   }
   } catch (error) {

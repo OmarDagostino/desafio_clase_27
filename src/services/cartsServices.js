@@ -1,7 +1,7 @@
 import {cartsDataManager as DAOCarts} from "../dao/cartsDataManager.js";
 
 class CartsServices {
-
+    
     constructor (daoCarts) {
         this.daoCarts = new daoCarts ()
     }
